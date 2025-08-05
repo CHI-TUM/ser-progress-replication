@@ -1,0 +1,12 @@
+[project]
+name = "SER Replication"
+version = "0.1.0"
+description = "Reproduction of paper results"
+requires-python = ">=3.10"
+authors = ["Andreas Triantafyllopoulos <andreas.triantafyllopoulos@tum.de>"]
+dependencies = [
+    "autrainer==0.7.1",
+    "opensmile==2.6.0"
+]
+[tool.uv]
+dev-dependencies = ["ruff"]
