@@ -1,0 +1,23 @@
+id: AIBO-5cl-wav
+_target_: autrainer.datasets.AIBO
+
+path: data/AIBO
+features_subdir: wav
+index_column: file
+target_column: class
+
+file_type: wav
+file_handler: autrainer.datasets.utils.AudioFileHandler
+
+criterion: autrainer.criterions.BalancedCrossEntropyLoss
+metrics: 
+  - autrainer.metrics.Accuracy
+  - autrainer.metrics.UAR
+  - autrainer.metrics.F1
+tracking_metric: autrainer.metrics.UAR
+
+transform:
+  type: raw
+  train:
+    - autrainer.transforms.RandomCrop:
+        size: 48000

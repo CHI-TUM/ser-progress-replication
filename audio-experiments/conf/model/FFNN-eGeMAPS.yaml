@@ -1,0 +1,9 @@
+id: FFNN-eGeMAPS
+_target_: autrainer.models.FFNN
+input_size: 88
+hidden_size: 64
+num_layers: 3
+dropout: 0.5
+
+transform:
+  type: tabular

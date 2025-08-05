@@ -1,0 +1,28 @@
+id: MSPPodcast-ComParE-func
+_target_: autrainer.datasets.MSPPodcast
+
+features_subdir: ComParE_2016
+
+standardize: true
+path: data/MSP-Podcast/
+features_path: data/MSP-Podcast/features/
+index_column: FileName
+target_column: EmoClass
+categories:
+  - A
+  - H
+  - N
+  - S
+
+file_type: npy
+file_handler: autrainer.datasets.utils.NumpyFileHandler
+
+criterion: autrainer.criterions.BalancedCrossEntropyLoss
+metrics: 
+  - autrainer.metrics.Accuracy
+  - autrainer.metrics.UAR
+  - autrainer.metrics.F1
+tracking_metric: autrainer.metrics.UAR
+
+transform:
+  type: tabular

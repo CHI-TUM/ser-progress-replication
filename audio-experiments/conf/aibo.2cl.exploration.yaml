@@ -1,0 +1,113 @@
+defaults:
+  - _autrainer_
+  - _self_
+
+results_dir: results/audio
+experiment_id: aibo-2cl-exploration
+iterations: 30
+progress_bar: false
+
+hydra:
+  sweeper:
+    params:
+      +loggers:
+        - autrainer.loggers.TensorBoardLogger
+      +seed: 1
+      batch_size: 4
+      +inference_batch_size: 1
+      +learning_rate: 0.001
+      dataset:
+        AIBO-2cl-ComParE-func,
+        AIBO-2cl-eGeMAPS-func,
+        AIBO-2cl-IS11-func,
+        AIBO-2cl-IS09-func,
+        AIBO-2cl-IS10-func,
+        AIBO-2cl-IS12-func,
+        AIBO-2cl-IS13-func,
+        AIBO-2cl-IS09-llds,
+        AIBO-2cl-ComParE-llds,
+        AIBO-2cl-eGeMAPS-llds,
+        AIBO-2cl-IS10-llds,
+        AIBO-2cl-IS11-llds,
+        AIBO-2cl-IS12-llds,
+        AIBO-2cl-IS13-llds,
+        AIBO-2cl-mel16k,
+        AIBO-2cl-wav
+      model:
+        ASTModel-T,
+        FFNN-IS16,
+        FFNN-eGeMAPS,
+        FFNN-IS09,
+        FFNN-IS10,
+        FFNN-IS11,
+        FFNN-IS12,
+        FFNN-IS13,
+        Seq-FFNN-IS09,
+        Seq-FFNN-eGeMAPS,
+        Seq-FFNN-IS16,
+        Seq-FFNN-IS10,
+        Seq-FFNN-IS11,
+        Seq-FFNN-IS12,
+        Seq-FFNN-IS13,
+        AlexNet-T,
+        Cnn14-16k-T,
+        ConvNeXt-Base-T,
+        ConvNeXt-Large-T,
+        ConvNeXt-Small-T,
+        ConvNeXt-Tiny-T,
+        EfficientNet-B0-T,
+        ResNet-50-T,
+        Swin-B-T,
+        Swin-S-T,
+        Swin-T-T,
+        VGG-11-T,
+        VGG-13-T,
+        VGG-16-T,
+        VGG-19-T,
+        TDNN-T,
+        w2v2-b,
+        w2v2-l-100k,
+        w2v2-l-emo,
+        w2v2-l-rob,
+        w2v2-l,
+        Whisper-FFNN-Base-T,
+        Whisper-FFNN-Small-T,
+        Whisper-FFNN-Tiny-T,
+        End2You-emo18,
+        End2You-zhao19,
+        hubert-b-ls960,
+        hubert-l-ll60k
+      optimizer: Adam
+    filters:
+      - type: expr
+        expr: dataset['id'] == 'AIBO-2cl-ComParE-llds' and model['id'] != 'Seq-FFNN-IS16'
+      - type: expr
+        expr: dataset['id'] == 'AIBO-2cl-ComParE-func' and model['id'] != 'FFNN-IS16'
+      - type: expr
+        expr: dataset['id'] == 'AIBO-2cl-eGeMAPS-llds' and model['id'] != 'Seq-FFNN-eGeMAPS'
+      - type: expr
+        expr: dataset['id'] == 'AIBO-2cl-eGeMAPS-func' and model['id'] != 'FFNN-eGeMAPS'
+      - type: expr
+        expr: dataset['id'] == 'AIBO-2cl-IS09-func' and model['id'] != 'FFNN-IS09'
+      - type: expr
+        expr: dataset['id'] == 'AIBO-2cl-IS10-func' and model['id'] != 'FFNN-IS10'
+      - type: expr
+        expr: dataset['id'] == 'AIBO-2cl-IS11-func' and model['id'] != 'FFNN-IS11'
+      - type: expr
+        expr: dataset['id'] == 'AIBO-2cl-IS12-func' and model['id'] != 'FFNN-IS12'
+      - type: expr
+        expr: dataset['id'] == 'AIBO-2cl-IS13-func' and model['id'] != 'FFNN-IS13'
+      - type: expr
+        expr: dataset['id'] == 'AIBO-2cl-IS09-llds' and model['id'] != 'Seq-FFNN-IS09'
+      - type: expr
+        expr: dataset['id'] == 'AIBO-2cl-IS10-llds' and model['id'] != 'Seq-FFNN-IS10'
+      - type: expr
+        expr: dataset['id'] == 'AIBO-2cl-IS11-llds' and model['id'] != 'Seq-FFNN-IS11'
+      - type: expr
+        expr: dataset['id'] == 'AIBO-2cl-IS12-llds' and model['id'] != 'Seq-FFNN-IS12'
+      - type: expr
+        expr: dataset['id'] == 'AIBO-2cl-IS13-llds' and model['id'] != 'Seq-FFNN-IS13'
+      - type: expr
+        expr: dataset['id'] == "AIBO-2cl-mel16k" and model['id'] in ["ASTModel-T","End2You-emo18","End2You-zhao19","hubert-b-ls960","hubert-l-ll60k","Seq-FFNN-eGeMAPS","Seq-FFNN-IS09","Seq-FFNN-IS10","Seq-FFNN-IS11","Seq-FFNN-IS12","Seq-FFNN-IS13","Seq-FFNN-IS16","FFNN-eGeMAPS","FFNN-IS09","FFNN-IS10","FFNN-IS11","FFNN-IS12","FFNN-IS13","FFNN-IS16","TDNN-T","w2v2-b","w2v2-l-100k","w2v2-l-emo","w2v2-l-rob","w2v2-l","Whisper-FFNN-Base-T","Whisper-FFNN-Small-T","Whisper-FFNN-Tiny-T"]
+      - type: expr
+        expr: dataset['id'] == "AIBO-2cl-wav" ! model['id'] in ["AlexNet-T","Cnn14-16k-T","ConvNeXt-Base-T","ConvNeXt-Large-T","ConvNeXt-Small-T","ConvNeXt-Tiny-T","EfficientNet-B0-T","ResNet50-T","Seq-FFNN-eGeMAPS","Seq-FFNN-IS09","Seq-FFNN-IS10","Seq-FFNN-IS11","Seq-FFNN-IS12","Seq-FFNN-IS13","Seq-FFNN-IS16","FFNN-eGeMAPS","FFNN-IS09","FFNN-IS10","FFNN-IS11","FFNN-IS12","FFNN-IS13","FFNN-IS16","Swin-B-T","Swin-S-T","Swin-T-T","VGG11-T","VGG13-T","VGG16-T","VGG19-T"]

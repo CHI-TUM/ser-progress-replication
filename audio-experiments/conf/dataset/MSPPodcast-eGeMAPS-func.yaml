@@ -1,0 +1,30 @@
+id: MSPPodcast-eGeMAPS-func
+_target_: autrainer.datasets.MSPPodcast
+
+features_subdir: eGeMAPSv02
+standardize: true
+path: /nas/databases/UAU/MSP-Podcast-v1-11/original
+features_path: /nas/staff/data_work/Andreas/Thesis/msp-features/
+index_column: FileName
+target_column: EmoClass
+categories:
+  - A
+  - H
+  - N
+  - S
+
+file_type: npy
+file_handler: data.SafeNumpyFileHandler
+
+criterion: autrainer.criterions.BalancedCrossEntropyLoss
+metrics: 
+  - autrainer.metrics.Accuracy
+  - autrainer.metrics.UAR
+  - autrainer.metrics.F1
+tracking_metric: autrainer.metrics.UAR
+
+transform:
+  type: tabular
+  base:
+    - data.Squash:
+      order: -10

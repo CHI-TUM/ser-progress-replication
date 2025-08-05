@@ -1,0 +1,33 @@
+defaults:
+  - _autrainer_
+  - _self_
+
+results_dir: results/audio
+experiment_id: msp-tuning
+iterations: 5
+progress_bar: false
+
+hydra:
+  sweeper:
+    params:
+      +loggers:
+        - autrainer.loggers.TensorBoardLogger
+      +seed: 1
+      +learning_rate: 0.01,0.001,0.0001
+      +batch_size: 4
+      +inference_batch_size: 1
+      dataset:
+        MSPPodcast-mel16k,
+        MSPPodcast-wav
+      model:
+        EfficientNet-B0-T,
+        w2v2-l-100k,
+        w2v2-l-emo,
+        w2v2-l-rob,
+        hubert-l-ll60k
+      optimizer: Adam,SGD
+    filters:
+      - type: expr
+        expr: dataset['id'] == "MSPPodcast-mel16k" and model['id'] in ["hubert-l-ll60k","w2v2-l-100k","w2v2-l-emo","w2v2-l-rob"]
+      - type: expr
+        expr: dataset['id'] == "MSPPodcast-wav" ! model['id'] == "EfficientNet-B0-T"

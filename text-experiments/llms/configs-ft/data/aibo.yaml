@@ -1,0 +1,4 @@
+name: aibo
+labels: data/AIBO/labels/IS2009EmotionChallenge/  # chunk_labels_5cl_corpus.txt
+task: 2cl
+transcripts: data/AIBO/transliteration/transliteration.txt

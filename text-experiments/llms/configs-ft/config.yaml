@@ -1,0 +1,11 @@
+defaults:
+  - _self_
+  - data: msp
+
+hparams:
+  seed: 0
+meta:
+  device: cuda:0
+  results: results/llms
+  trial: false
+model: meta-llama/Meta-Llama-3-8B-Instruct
